@@ -42,6 +42,11 @@ class PostService {
     )
     return post
   }
+
+  async delete(id: string) {
+    const post = await Post.findByIdAndDelete({ _id: id })
+    return post
+  }
 }
 
 export const postService = new PostService()

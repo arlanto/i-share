@@ -62,4 +62,6 @@ postRoutes.put(
   postController.update
 )
 
+postRoutes.delete('/post/:id', authorization, postController.delete)
+
 export default postRoutes

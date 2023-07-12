@@ -71,6 +71,28 @@ class PostController {
       return next(error)
     }
   }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id
+    const user = req.user
+    try {
+      if (!user) {
+        return next(new AppException(401, 'You are not logged in'))
+      }
+      const author = await userService.findById(user._id)
+      if (!author) {
+        return next(new AppException(404, 'Author does not exist'))
+      }
+      const post = await postService.findById(id)
+      if (!post.author._id.equals(author._id)) {
+        return next(new AppException(403, 'Access denied'))
+      }
+      await postService.delete(id)
+      return res.status(204)
+    } catch (error) {
+      return next(error)
+    }
+  }
 }
 
 export const postController = new PostController()
