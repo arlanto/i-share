@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es2021"],
+    "outDir": "dist",
+    "strict": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["@types"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "./dist", "./coverage"]
+}
