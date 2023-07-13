@@ -7,6 +7,7 @@ export interface Payload {
 
 export interface UserModel extends Payload {
   username: string
+  avatar?: string
   tokens?: { token: string }[]
 }
 

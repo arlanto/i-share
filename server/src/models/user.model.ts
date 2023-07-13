@@ -21,6 +21,11 @@ const UserSchema = new Schema<UserModel>(
       minlength: 6,
       trim: true,
     },
+    avatar: {
+      type: String,
+      required: false,
+      default: 'user.png',
+    },
     tokens: [
       {
         token: {
@@ -34,5 +39,14 @@ const UserSchema = new Schema<UserModel>(
     timestamps: true,
   }
 )
+
+UserSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (_doc, prop) {
+    delete prop.password
+    delete prop.tokens
+    return prop
+  },
+})
 
 export const User = model<UserModel>('User', UserSchema)

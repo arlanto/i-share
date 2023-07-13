@@ -1,4 +1,5 @@
 import { User } from '~/models/user.model'
+import bcrypt from 'bcrypt'
 import { CreateUser, UpdateUser } from '~/interfaces/user.interface'
 
 class UserService {
@@ -44,6 +45,17 @@ class UserService {
       }
     )
     return user
+  }
+
+  async hashPassword(password: string) {
+    const salt = await bcrypt.genSalt(12)
+    const hashedPassword = await bcrypt.hash(password, salt)
+    return hashedPassword
+  }
+
+  async verifyPassword(password: string, hash: string) {
+    const matchedPassword = await bcrypt.compare(password, hash)
+    return matchedPassword
   }
 }
 

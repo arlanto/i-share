@@ -30,7 +30,7 @@ const PostSchema = new Schema<PostModel>(
     image: {
       type: String,
       required: false,
-      default: 'default.jpg',
+      default: 'default.jpeg',
     },
   },
   {

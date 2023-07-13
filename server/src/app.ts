@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/auth.route'
 import postRoutes from './routes/post.route'
+import userRoutes from './routes/user.route'
 import { errorMiddleware } from './middlewares/error.middleware'
 import { env } from './utils/env'
 
@@ -28,6 +29,7 @@ export class App {
   private initRoutes() {
     this.app.use('/api/auth', authRoutes)
     this.app.use('/api/posts', postRoutes)
+    this.app.use('/api/users', userRoutes)
   }
 
   private initErrorHandler() {

@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import bcrypt from 'bcrypt'
 import { userService } from '~/services/user.service'
 import {
   accessTokenKey,
@@ -25,8 +24,7 @@ class AuthController {
       if (email) {
         return next(new AppException(400, `Email ${data.email} is already taken`, 'email'))
       }
-      const salt = await bcrypt.genSalt(12)
-      const hashedPassword = await bcrypt.hash(data.password, salt)
+      const hashedPassword = await userService.hashPassword(data.password)
       const user = await userService.create({
         ...data,
         password: hashedPassword,
@@ -52,7 +50,7 @@ class AuthController {
       if (!user) {
         return next(new AppException(400, 'Email or Password is invalid', 'password'))
       }
-      const matchedPassword = await bcrypt.compare(data.password, user.password)
+      const matchedPassword = await userService.verifyPassword(data.password, user.password)
       if (!matchedPassword) {
         return next(new AppException(400, 'Email or Password is invalid', 'password'))
       }
