@@ -64,4 +64,6 @@ postRoutes.put(
 
 postRoutes.delete('/post/:id', authorization, postController.delete)
 
+postRoutes.post('/post/likes/like/:id', authorization, postController.like)
+
 export default postRoutes

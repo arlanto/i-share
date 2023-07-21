@@ -6,7 +6,7 @@ class PostService {
   async create(data: CreatePost) {
     const newPost = await Post.create({
       ...data,
-      categories: data.categories.split('+'),
+      topics: data.topics.split('+'),
     })
     const post = newPost.save()
     return post
@@ -33,7 +33,7 @@ class PostService {
       {
         $set: {
           ...data,
-          categories: data.categories?.split('+'),
+          topics: data.topics?.split('+'),
         },
       },
       {

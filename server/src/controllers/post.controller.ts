@@ -93,6 +93,32 @@ class PostController {
       return next(error)
     }
   }
+
+  async like(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id
+    const authUser = req.user
+    try {
+      if (!authUser) {
+        return next(new AppException(401, 'You are not logged in'))
+      }
+      const user = await userService.findById(authUser._id)
+      if (!user) {
+        return next(new AppException(404, 'User not found'))
+      }
+      const post = await postService.findById(id)
+      if (post.likesBy?.includes(user._id)) {
+        const index = post.likesBy.indexOf(user._id)
+        post.likesBy.splice(index, 1)
+      } else {
+        post.likesBy?.push(user._id)
+      }
+      post.likes = post.likesBy?.length as number
+      const likePost = await post.save()
+      return res.status(200).json({ message: 'Post likes', post: likePost })
+    } catch (error) {
+      return next(error)
+    }
+  }
 }
 
 export const postController = new PostController()

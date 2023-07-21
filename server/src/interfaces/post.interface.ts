@@ -6,14 +6,16 @@ interface PostBase {
   content: string
   readTime?: number
   image?: string
+  likesBy?: Array<IUser['_id']>
+  likes: number
 }
 
 export interface PostModel extends PostBase {
-  categories: Array<string>
+  topics: Array<string>
 }
 
 export interface CreatePost extends PostBase {
-  categories: string
+  topics: string
 }
 
 export type UpdatePost = Partial<CreatePost>

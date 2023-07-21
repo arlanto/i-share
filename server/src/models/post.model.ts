@@ -16,7 +16,7 @@ const PostSchema = new Schema<PostModel>(
       type: String,
       required: true,
     },
-    categories: [
+    topics: [
       {
         type: String,
         required: true,
@@ -31,6 +31,17 @@ const PostSchema = new Schema<PostModel>(
       type: String,
       required: false,
       default: 'default.jpeg',
+    },
+    likesBy: [
+      {
+        type: Types.ObjectId,
+        ref: 'User',
+        required: false,
+      },
+    ],
+    likes: {
+      type: Number,
+      default: 0,
     },
   },
   {

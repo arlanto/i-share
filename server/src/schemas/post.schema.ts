@@ -9,9 +9,9 @@ const createPostSchema = z.object({
     .string({ required_error: 'Post Content is required' })
     .nonempty('Post Content cannot be empty')
     .trim(),
-  categories: z
-    .string({ required_error: 'Post Categories is required' })
-    .nonempty('Post Categories cannot be empty')
+  topics: z
+    .string({ required_error: 'Post Topics is required' })
+    .nonempty('Post Topics cannot be empty')
     .trim(),
 })
 
