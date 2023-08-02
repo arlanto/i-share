@@ -80,7 +80,7 @@ class AuthController {
       user.tokens = user?.tokens?.filter(tokenObj => tokenObj.token !== refreshTokenHash)
       await userService.update(user._id.toString(), user)
       res.clearCookie('refresh_token')
-      return res.status(205)
+      return res.status(205).json({ success: true })
     } catch (error) {
       return next(error)
     }
@@ -96,7 +96,7 @@ class AuthController {
       user.tokens = []
       await userService.update(user._id.toString(), user)
       res.clearCookie('refresh_token')
-      return res.status(205)
+      return res.status(205).json({ success: true })
     } catch (error) {
       return next(error)
     }
