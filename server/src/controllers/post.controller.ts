@@ -88,7 +88,7 @@ class PostController {
         return next(new AppException(403, 'Access denied'))
       }
       await postService.delete(id)
-      return res.status(204)
+      return res.status(204).json({ success: true })
     } catch (error) {
       return next(error)
     }

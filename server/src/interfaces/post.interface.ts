@@ -1,3 +1,4 @@
+import { Types } from 'mongoose'
 import { IUser } from './user.interface'
 
 interface PostBase {
@@ -8,6 +9,10 @@ interface PostBase {
   image?: string
   likesBy?: Array<IUser['_id']>
   likes: number
+}
+
+export interface IPost extends PostBase {
+  _id: Types.ObjectId
 }
 
 export interface PostModel extends PostBase {
