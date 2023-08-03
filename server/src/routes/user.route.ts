@@ -43,15 +43,11 @@ const upload = multer({
   fileFilter: fileFilter,
 })
 
-userRoutes.get('/user/:id', userController.findById)
-userRoutes.put('/user/:id', authorization, validate(updateUserSchema), userController.update)
-userRoutes.put('/user/password/:id', authorization, userController.changePassword)
+userRoutes.get('/:id', userController.findById)
+userRoutes.get('/posts', authorization, userController.findMyPosts)
+userRoutes.put('/:id', authorization, validate(updateUserSchema), userController.update)
+userRoutes.put('/password/:id', authorization, userController.changePassword)
 
-userRoutes.put(
-  '/user/avatar/:id',
-  authorization,
-  upload.single('image'),
-  userController.changeAvatar
-)
+userRoutes.put('/avatar/:id', authorization, upload.single('image'), userController.changeAvatar)
 
 export default userRoutes

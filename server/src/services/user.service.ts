@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import { User } from '~/models/user.model'
-import { CreateUser, UpdateUser } from '~/interfaces/user.interface'
+import { postService } from './post.service'
+import { CreateUser, IUser, UpdateUser } from '~/interfaces/user.interface'
 
 class UserService {
   async create(data: CreateUser) {
@@ -30,6 +31,11 @@ class UserService {
   async findByUsername(username: string) {
     const user = await User.findOne({ username })
     return user
+  }
+
+  async findMyPosts(user: IUser) {
+    const posts = await postService.findByAuthor(user)
+    return posts
   }
 
   async update(id: string, data: UpdateUser) {

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { userService } from '~/services/user.service'
-import { UpdateUser } from '~/interfaces/user.interface'
+import { IUser, UpdateUser } from '~/interfaces/user.interface'
 import { AppException } from '~/utils/app-exception'
 
 class UserController {
@@ -9,6 +9,17 @@ class UserController {
     try {
       const user = await userService.findById(id)
       return res.status(200).json(user)
+    } catch (error) {
+      return next(error)
+    }
+  }
+
+  async findMyPosts(req: Request, res: Response, next: NextFunction) {
+    const user = req.user
+    try {
+      const author = await userService.findById(user?._id as string)
+      const posts = await userService.findMyPosts(author as IUser)
+      return res.status(200).json(posts)
     } catch (error) {
       return next(error)
     }

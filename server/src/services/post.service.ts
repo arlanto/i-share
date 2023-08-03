@@ -1,6 +1,7 @@
 import { Post } from '~/models/post.model'
 import { CreatePost, UpdatePost } from '~/interfaces/post.interface'
 import { AppException } from '~/utils/app-exception'
+import { IUser } from '~/interfaces/user.interface'
 
 class PostService {
   async create(data: CreatePost) {
@@ -14,6 +15,11 @@ class PostService {
 
   async findAll() {
     const posts = await Post.find().populate('author')
+    return posts
+  }
+
+  async findByAuthor(user: IUser) {
+    const posts = await Post.find({ author: user })
     return posts
   }
 

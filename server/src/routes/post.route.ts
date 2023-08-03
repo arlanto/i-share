@@ -52,10 +52,10 @@ postRoutes.post(
 )
 
 postRoutes.get('/', postController.findAll)
-postRoutes.get('/post/:id', postController.findById)
+postRoutes.get('/:id', postController.findById)
 
 postRoutes.put(
-  '/post/:id',
+  '/:id',
   authorization,
   upload.single('image'),
   validate(updatePostSchema),
@@ -64,6 +64,6 @@ postRoutes.put(
 
 postRoutes.delete('/post/:id', authorization, postController.delete)
 
-postRoutes.post('/likes/like/:id', authorization, postController.like)
+postRoutes.post('/likes/:id', authorization, postController.like)
 
 export default postRoutes

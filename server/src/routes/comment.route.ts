@@ -14,9 +14,9 @@ commentRoutes.post(
 )
 
 commentRoutes.get('/', commentController.findAll)
-commentRoutes.get('/comment/:id', commentController.findById)
-commentRoutes.put('/comment/:id', authorization, validate(commentSchema), commentController.update)
-commentRoutes.delete('/comment/:id', authorization, commentController.delete)
-commentRoutes.post('/likes/like/:id', authorization, commentController.like)
+commentRoutes.get(':id', commentController.findById)
+commentRoutes.put('/:id', authorization, validate(commentSchema), commentController.update)
+commentRoutes.delete('/:id', authorization, commentController.delete)
+commentRoutes.post('/likes/:id', authorization, commentController.like)
 
 export default commentRoutes
