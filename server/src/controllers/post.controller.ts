@@ -9,12 +9,9 @@ class PostController {
     const data: CreatePost = req.body
     const user = req.user
     try {
-      if (!user) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const author = await userService.findById(user._id)
+      const author = await userService.findById(user?._id as string)
       if (!author) {
-        return next(new AppException(400, 'Author does not exist'))
+        return next(new AppException(404, 'User not found'))
       }
       const post = await postService.create({
         ...data,
@@ -51,12 +48,9 @@ class PostController {
     const data: UpdatePost = req.body
     const user = req.user
     try {
-      if (!user) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const author = await userService.findById(user._id)
+      const author = await userService.findById(user?._id as string)
       if (!author) {
-        return next(new AppException(404, 'Author does not exist'))
+        return next(new AppException(404, 'Author not found'))
       }
       const post = await postService.findById(id)
       if (!post.author._id.equals(author._id)) {
@@ -76,12 +70,9 @@ class PostController {
     const id = req.params.id
     const user = req.user
     try {
-      if (!user) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const author = await userService.findById(user._id)
+      const author = await userService.findById(user?._id as string)
       if (!author) {
-        return next(new AppException(404, 'Author does not exist'))
+        return next(new AppException(404, 'Author not found'))
       }
       const post = await postService.findById(id)
       if (!post.author._id.equals(author._id)) {
@@ -96,12 +87,9 @@ class PostController {
 
   async like(req: Request, res: Response, next: NextFunction) {
     const id = req.params.id
-    const authUser = req.user
+    const auth = req.user
     try {
-      if (!authUser) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const user = await userService.findById(authUser._id)
+      const user = await userService.findById(auth?._id as string)
       if (!user) {
         return next(new AppException(404, 'User not found'))
       }

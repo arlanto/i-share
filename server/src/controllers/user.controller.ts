@@ -19,10 +19,7 @@ class UserController {
     const auth = req.user
     const data: UpdateUser = req.body
     try {
-      if (!auth) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const user = await userService.findById(auth._id)
+      const user = await userService.findById(auth?._id as string)
       if (!user) {
         return next(new AppException(404, 'User not found'))
       }
@@ -43,10 +40,7 @@ class UserController {
     const data = req.body
     const auth = req.user
     try {
-      if (!auth) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const user = await userService.findById(id)
+      const user = await userService.findById(auth?._id as string)
       if (!user) {
         return next(new AppException(404, 'User not found'))
       }
@@ -69,10 +63,7 @@ class UserController {
     const data = req.body
     const auth = req.user
     try {
-      if (!auth) {
-        return next(new AppException(401, 'You are not logged in'))
-      }
-      const user = await userService.findById(auth._id)
+      const user = await userService.findById(auth?._id as string)
       if (!user) {
         return next(new AppException(404, 'User not found'))
       }

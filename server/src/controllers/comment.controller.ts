@@ -13,7 +13,7 @@ class CommentController {
     try {
       const author = await userService.findById(user?._id as string)
       if (!author) {
-        return next(new AppException(401, 'User not found'))
+        return next(new AppException(404, 'User not found'))
       }
       const post = await postService.findById(id)
       if (!post) {
@@ -53,12 +53,12 @@ class CommentController {
     const user = req.user
     const id = req.params.id
     try {
-      const userAuth = await userService.findById(user?._id as string)
-      if (!userAuth) {
+      const auth = await userService.findById(user?._id as string)
+      if (!auth) {
         return next(new AppException(404, 'Author not found'))
       }
       const comment = await commentService.findById(id)
-      if (!comment.author._id.equals(userAuth._id)) {
+      if (!comment.author._id.equals(auth._id)) {
         return next(new AppException(403, 'Access denied'))
       }
       const updatedComment = await commentService.update(id, data)
@@ -74,12 +74,12 @@ class CommentController {
     const user = req.user
     const id = req.params.id
     try {
-      const authUser = await userService.findById(user?._id as string)
-      if (!authUser) {
+      const auth = await userService.findById(user?._id as string)
+      if (!auth) {
         return next(new AppException(404, 'Author not found'))
       }
       const comment = await commentService.findById(id)
-      if (!comment.author._id.equals(authUser._id)) {
+      if (!comment.author._id.equals(auth._id)) {
         return next(new AppException(403, 'Access denied'))
       }
       await commentService.delete(comment._id.toString())
@@ -91,9 +91,9 @@ class CommentController {
 
   async like(req: Request, res: Response, next: NextFunction) {
     const id = req.params.id
-    const authUser = req.user
+    const auth = req.user
     try {
-      const user = await userService.findById(authUser?._id as string)
+      const user = await userService.findById(auth?._id as string)
       if (!user) {
         return next(new AppException(404, 'User not found'))
       }

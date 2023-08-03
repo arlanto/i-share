@@ -1,5 +1,5 @@
-import { User } from '~/models/user.model'
 import bcrypt from 'bcrypt'
+import { User } from '~/models/user.model'
 import { CreateUser, UpdateUser } from '~/interfaces/user.interface'
 
 class UserService {
