@@ -30,6 +30,15 @@ class CommentController {
     }
   }
 
+  async findAll(_req: Request, res: Response, next: NextFunction) {
+    try {
+      const comments = await commentService.findAll()
+      return res.status(200).json(comments)
+    } catch (error) {
+      return next(error)
+    }
+  }
+
   async findById(req: Request, res: Response, next: NextFunction) {
     try {
       const comment = await commentService.findById(req.params.id)
@@ -75,6 +84,29 @@ class CommentController {
       }
       await commentService.delete(comment._id.toString())
       return res.status(204).json({ success: true })
+    } catch (error) {
+      return next(error)
+    }
+  }
+
+  async like(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id
+    const authUser = req.user
+    try {
+      const user = await userService.findById(authUser?._id as string)
+      if (!user) {
+        return next(new AppException(404, 'User not found'))
+      }
+      const comment = await commentService.findById(id)
+      if (comment.likesBy?.includes(user._id)) {
+        const index = comment.likesBy.indexOf(user._id)
+        comment.likesBy.splice(index, 1)
+      } else {
+        comment.likesBy?.push(user._id)
+      }
+      comment.likes = comment.likesBy?.length as number
+      const commentLike = await comment.save()
+      return res.status(200).json({ comment: commentLike })
     } catch (error) {
       return next(error)
     }

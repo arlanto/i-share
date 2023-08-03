@@ -18,6 +18,17 @@ const CommentSchema = new Schema<CommentModel>(
       ref: 'User',
       required: true,
     },
+    likesBy: [
+      {
+        type: Types.ObjectId,
+        ref: 'User',
+        required: false,
+      },
+    ],
+    likes: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

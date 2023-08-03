@@ -114,7 +114,7 @@ class PostController {
       }
       post.likes = post.likesBy?.length as number
       const likePost = await post.save()
-      return res.status(200).json({ message: 'Post likes', post: likePost })
+      return res.status(200).json({ post: likePost })
     } catch (error) {
       return next(error)
     }

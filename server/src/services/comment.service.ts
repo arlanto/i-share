@@ -9,6 +9,11 @@ class CommentService {
     return comment
   }
 
+  async findAll() {
+    const comments = await Comment.find()
+    return comments
+  }
+
   async findById(id: string) {
     const comment = await Comment.findById({ _id: id })
     if (!comment) {
