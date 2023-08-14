@@ -6,7 +6,7 @@ interface PostBase {
   title: string
   content: string
   readTime?: number
-  image?: string
+  cover?: string
   likesBy?: Array<IUser['_id']>
   likes: number
 }

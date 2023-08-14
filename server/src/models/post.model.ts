@@ -27,7 +27,7 @@ const PostSchema = new Schema<PostModel>(
       required: false,
       default: 3,
     },
-    image: {
+    cover: {
       type: String,
       required: false,
       default: 'default.jpeg',

@@ -16,7 +16,7 @@ class PostController {
       const post = await postService.create({
         ...data,
         author: author,
-        image: req.file?.filename,
+        cover: req.file?.filename,
       })
       return res.status(201).json(post)
     } catch (error) {
@@ -58,7 +58,7 @@ class PostController {
       }
       const updatedPost = await postService.update(id, {
         ...data,
-        image: req.file?.filename,
+        cover: req.file?.filename,
       })
       return res.status(200).json({ post: updatedPost })
     } catch (error) {

@@ -34,7 +34,7 @@ const fileFilter = (_req: any, file: any, cb: any) => {
   ) {
     cb(null, true)
   } else {
-    cb(new AppException(400, 'Image should be of type jpg, jpeg or png', 'image'), false)
+    cb(new AppException(400, 'Image should be of type jpg, jpeg or png', 'avatar'), false)
   }
 }
 
@@ -48,6 +48,6 @@ userRoutes.get('/posts', authorization, userController.findMyPosts)
 userRoutes.put('/:id', authorization, validate(updateUserSchema), userController.update)
 userRoutes.put('/password/:id', authorization, userController.changePassword)
 
-userRoutes.put('/avatar/:id', authorization, upload.single('image'), userController.changeAvatar)
+userRoutes.put('/avatar/:id', authorization, upload.single('avatar'), userController.changeAvatar)
 
 export default userRoutes

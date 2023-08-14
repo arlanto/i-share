@@ -34,7 +34,7 @@ const fileFilter = (_req: any, file: any, cb: any) => {
   ) {
     cb(null, true)
   } else {
-    cb(new AppException(400, 'Image should be of type jpg, jpeg or png', 'image'), false)
+    cb(new AppException(400, 'Image should be of type jpg, jpeg or png', 'cover'), false)
   }
 }
 
@@ -46,7 +46,7 @@ const upload = multer({
 postRoutes.post(
   '/',
   authorization,
-  upload.single('image'),
+  upload.single('cover'),
   validate(createPostSchema),
   postController.create
 )
@@ -57,7 +57,7 @@ postRoutes.get('/:id', postController.findById)
 postRoutes.put(
   '/:id',
   authorization,
-  upload.single('image'),
+  upload.single('cover'),
   validate(updatePostSchema),
   postController.update
 )

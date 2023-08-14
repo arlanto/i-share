@@ -6,12 +6,7 @@ import { commentSchema } from '~/schemas/comment.schema'
 
 const commentRoutes = Router()
 
-commentRoutes.post(
-  '/comment/post/:id',
-  authorization,
-  validate(commentSchema),
-  commentController.create
-)
+commentRoutes.post('/post/:id', authorization, validate(commentSchema), commentController.create)
 
 commentRoutes.get('/', commentController.findAll)
 commentRoutes.get(':id', commentController.findById)
