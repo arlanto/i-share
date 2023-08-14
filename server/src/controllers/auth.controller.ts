@@ -138,6 +138,19 @@ class AuthController {
       return next(error)
     }
   }
+
+  async getMe(req: Request, res: Response, next: NextFunction) {
+    const auth = req.user
+    try {
+      const user = await userService.findById(auth?._id as string)
+      if (!user) {
+        return next(new AppException(404, 'User not found'))
+      }
+      return res.status(200).json(user)
+    } catch (error) {
+      return next(error)
+    }
+  }
 }
 
 export const authController = new AuthController()

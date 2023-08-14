@@ -11,5 +11,6 @@ authRoutes.post('/signin', validate(signinSchema), authController.signin)
 authRoutes.post('/signout', authorization, authController.signout)
 authRoutes.post('/signout-all-devices', authorization, authController.signoutAllDevices)
 authRoutes.post('/refresh-token', authorization, authController.refreshAccessToken)
+authRoutes.get('/me', authorization, authController.getMe)
 
 export default authRoutes
