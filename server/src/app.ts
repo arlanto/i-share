@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import cors, { CorsOptions } from 'cors'
 import authRoutes from './routes/auth.route'
 import postRoutes from './routes/post.route'
 import userRoutes from './routes/user.route'
@@ -10,6 +11,10 @@ import { env } from './utils/env'
 
 const port = env.APP_PORT
 const secret = env.COOKIE_SECRET
+const domain = env.ALLOWED_DOMAIN
+const corsOptions: CorsOptions = {
+  origin: domain,
+}
 
 export class App {
   app: Application
@@ -25,6 +30,7 @@ export class App {
     this.app.use(bodyParser.json())
     this.app.use(bodyParser.urlencoded({ extended: true }))
     this.app.use(cookieParser(secret))
+    this.app.use(cors(corsOptions))
   }
 
   private initRoutes() {

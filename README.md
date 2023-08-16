@@ -17,7 +17,7 @@ Mini Blog Application, with cookie based authentication.
 - Clone the repository or download as zip
 
 ```bash
-git clone https://github.com/arlanto/i-share
+git clone https://github.com/arlanto/i-share.git
 ```
 
 - Go to the directory

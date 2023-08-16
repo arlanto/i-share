@@ -8,4 +8,5 @@ export const env = {
   ACCESS_TOKEN_EXPIRY: <string>process.env.ACCESS_TOKEN_EXPIRY,
   REFRESH_TOKEN_SECRET: <string>process.env.REFRESH_TOKEN_SECRET,
   REFRESH_TOKEN_EXPIRY: <string>process.env.REFRESH_TOKEN_EXPIRY,
+  ALLOWED_DOMAIN: <string>process.env.ALLOWED_DOMAIN,
 }

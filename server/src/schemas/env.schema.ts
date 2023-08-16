@@ -11,4 +11,5 @@ export const envSchema = z.object({
   ACCESS_TOKEN_EXPIRY: z.string({ required_error: 'is required' }).nonempty(' cannot be empty'),
   REFRESH_TOKEN_SECRET: z.string({ required_error: 'is required' }).nonempty(' cannot be empty'),
   REFRESH_TOKEN_EXPIRY: z.string({ required_error: 'is required' }).nonempty(' cannot be empty'),
+  ALLOWED_DOMAIN: z.string({ required_error: 'is required' }).nonempty(' cannot be empty').url('must be a valid url'),
 })
